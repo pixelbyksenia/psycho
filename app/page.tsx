@@ -47,7 +47,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className="flex flex-wrap items-center w-full justify-center bg-[#EBDEFC] sticky top-0">
+      <div className="flex flex-wrap items-center w-full justify-center bg-[#EBDEFC] sticky top-0 z-100">
         <CTAWithModal />
       </div>
 
