@@ -1,11 +1,19 @@
 import Image from "next/image";
 import CTAWithModal from "./components/CTAWithModal";
 export const dynamic = "force-static";
+import HeaderAuthor from "./HeaderAuthor";
+import Footer from "./Footer";
 
 export default function Home() {
+  const items = [
+    "Дипломированный психолог с опытом практики более 5 лет",
+    "Провела свыше 1000 индивидуальных консультаций",
+    "Работаю с людьми не по формальности, а из искреннего интереса к их внутреннему миру",
+    "Подход всегда персональный — без универсальных схем и шаблонов",
+    "Мой опыт лег в основу этого гайда. В нем я собрала проверенные методы и принципы, которые помогают лучше понять себя и наладить процесс изменений.",
+  ];
   return (
     <div className="font-montserrat min-h-screen bg-covertext-foreground">
-      {/* Hero Section */}
       <section
         className="relative min-h-screen flex items-center justify-center"
         style={{
@@ -43,8 +51,8 @@ export default function Home() {
         <CTAWithModal />
       </div>
 
-      <div className="w-140 mx-auto bg-[#f3ebff4d] rounded-4xl h-120 flex justify-center items-center mt-10 text-[#7131DB] text-2xl">
-        <div className="w-120 mx-auto bg-[#F3EBFF] rounded-4xl h-100 flex justify-center items-center mt-10 mb-10 flex-col gap-10">
+      <div className="mx-auto bg-[#f3ebff4d] rounded-4xl h-120 flex justify-center items-center mt-10 text-[#7131DB] text-2xl w-[90%] sm:w-140">
+        <div className="bg-[#F3EBFF] rounded-4xl h-100 flex justify-center items-center mt-10 mb-10 flex-col gap-10 w-full sm:w-128 mx-6 sm:mx-auto">
           <div>Что даст это руководство</div>
           <div className="flex-col gap-4">
             <div className="flex gap-2">
@@ -69,67 +77,25 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 3. About product */}
-      <section className="max-w-6xl mx-auto px-6 py-16 sm:py-20">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
-          <div className="order-2 md:order-1">
-            <h2 className="text-3xl sm:text-4xl font-extrabold">
-              Что внутри гайда
-            </h2>
-            <ul className="mt-5 space-y-2 text-foreground/80">
-              <li>— 6 модулей: эмоции, мыслительные ловушки, самоподдержка</li>
-              <li>— Практические упражнения и шаблоны</li>
-              <li>— Быстрые техники на 2–5 минут</li>
-              <li>— Подходит для самостоятельной работы</li>
-            </ul>
-          </div>
-          <div className="order-1 md:order-2">
-            <div className="relative aspect-square rounded-3xl overflow-hidden bg-secondary">
-              <Image
-                src="/author.jpg"
-                alt="Автор"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* 4. Author */}
-      <section className="max-w-6xl mx-auto px-6 py-16 sm:py-20">
-        <div className="grid md:grid-cols-[160px_1fr] gap-6 items-start">
-          <div className="relative w-40 h-40 rounded-2xl overflow-hidden bg-cover">
-            <Image
-              src="/author.jpg"
-              alt="Автор"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div>
-            <h2 className="text-3xl font-extrabold">Об авторе</h2>
-            <p className="mt-3 text-foreground/80">
-              Психолог, 8+ лет практики. Ценности: бережность, ясность,
-              проверенные методы без драматизации. Помогаю создавать устойчивые
-              привычки заботы о себе.
-            </p>
-          </div>
-        </div>
-      </section>
+      <div className="min-h-screen bg-gradient-to-br from-indigo-300 to-purple-400 flex flex-col items-center justify-center px-6 py-10 text-white">
+        <HeaderAuthor />
 
-      {/* 5. CTA */}
-      <section className="px-6 pb-20">
-        <div className="max-w-3xl mx-auto rounded-3xl border border-black/10 dark:border-white/10 p-8 text-center bg-cover">
-          <h3 className="text-2xl sm:text-3xl font-bold">Готовы начать?</h3>
-          <p className="mt-2 text-foreground/80">
-            Заберите гайд и сделайте первый шаг к спокойствию.
-          </p>
-          <div className="mt-6 inline-flex">
-            <CTAWithModal />
-          </div>
+        <div className="flex flex-col gap-6 w-full max-w-2xl">
+          {items.map((text, index) => (
+            <div
+              key={index}
+              className="flex items-center bg-purple-200/30 rounded-3xl px-6 py-5 backdrop-blur-md"
+            >
+              <span className="text-5xl text-yellow-100 font-light mr-6">
+                0{index + 1}
+              </span>
+              <p className="text-base text-purple-900">{text}</p>
+            </div>
+          ))}
         </div>
-      </section>
+      </div>
+      <Footer />
     </div>
   );
 }
