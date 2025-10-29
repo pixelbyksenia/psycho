@@ -1,11 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #D7B6FF; /* main */
-  --secondary: #EBDEFC; /* accent */
+  --primary: #d7b6ff; /* main */
+  --secondary: #ebdefc; /* accent */
 }
 
 :root {
@@ -13,29 +13,37 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
-  --font-sans: 'Raleway', Helvetica, sans-serif;
-  --font-mono: 'Courier New', monospace;
+  --font-sans: "Raleway", Helvetica, sans-serif;
+  --font-mono: "Courier New", monospace;
+}
+
+/* app/globals.css */
+.raleway {
+  font-family: "Raleway", sans-serif;
+}
+.motserrat {
+  font-family: "Montserrat", sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    --primary: #C9A4FF;
+    --primary: #c9a4ff;
     --secondary: #221633;
   }
 }
 
 body {
-  background: url('/background.png');
+  background: url("/background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  font-family: 'Raleway', Helvetica, sans-serif;
+  font-family: "Montserrat", Helvetica, sans-serif;
 }
 
 h1 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 500;
   font-size: 19px;
   line-height: 91%;
@@ -43,7 +51,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'Helvetica', sans-serif;
+  font-family: "Helvetica", sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 92%;
