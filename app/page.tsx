@@ -1,9 +1,9 @@
 import Image from "next/image";
 import CTAWithModal from "./components/CTAWithModal";
 export const dynamic = "force-static";
-import HeaderAuthor from "./HeaderAuthor";
 import Footer from "./Footer";
 import PsychologyGuideCard from "./PsychologyGuideCard";
+import YouTubeIcon from "@mui/icons-material/YouTube";
 
 export default function Home() {
   const items = [
@@ -21,7 +21,7 @@ export default function Home() {
       <div className="flex flex-wrap items-center w-full justify-center bg-[#EBDEFC] sticky top-0 z-100">
         <CTAWithModal />
       </div>
-      <section className="relative min-h-screen flex items-center justify-center bg-[#EBDEFC] ">
+      <section className="relative min-h-screen-[80vh ] flex items-center justify-center bg-[#EBDEFC] ">
         <div className="max-w-6xl mx-auto px-6 py-20 sm:py-28 flex flex-col leading-[150%] w-160 font-regular gap-8 text-[#7131DB]">
           <div className="font-montserrat font-medium text-left text-[42px] w-20 leading-[91%] tracking-[-2px]">
             эффективная терапия: практическое руководство
@@ -48,23 +48,24 @@ export default function Home() {
       </section>
 
       {/* 4. Author */}
-      <div className="min-h-screen bg-gradient-to-br from-indigo-300 to-purple-400 flex flex-col items-center justify-center px-6 py-10 text-white">
-        <HeaderAuthor />
 
-        <div className="flex flex-col gap-6 w-full max-w-2xl">
-          {items.map((text, index) => (
-            <div
-              key={index}
-              className="flex items-center bg-purple-200/30 rounded-3xl px-6 py-5 backdrop-blur-md"
-            >
-              <span className="text-5xl text-yellow-100 font-light mr-6">
-                0{index + 1}
-              </span>
-              <p className="text-base text-purple-900">{text}</p>
-            </div>
-          ))}
-        </div>
+      <div className="flex flex-col items-center">
+        <Image
+          src="/image.png"
+          alt="Author Section"
+          width={400}
+          height={430}
+          className="object-cover w-88 h-full mx-auto"
+        />
+
+        <button
+          className="bg-[#ededed80] hover:bg-black/60 px-8 py-3 rounded-full transition flex items-center justify-center relative bottom-16"
+          aria-label="YouTube"
+        >
+          <YouTubeIcon style={{ color: "#EBDEFC", fontSize: 28 }} />
+        </button>
       </div>
+
       <Footer />
     </div>
   );
