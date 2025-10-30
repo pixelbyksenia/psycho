@@ -4,14 +4,14 @@ export default function PsychologyGuideCard() {
   return (
     <div className="flex flex-col items-center p-6 w-full max-w-sm mx-auto">
       {/* Фото профиля */}
-      <div className="flex flex-col items-center -mt-8 z-10">
-        <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow-md">
+      <div className="flex flex-col items-center z-10">
+        <div className="w-20 h-20 rounded-full overflow-hidden border-6 border-[#EBDEFC]">
           <Image
             src="/author.jpg"
             alt="Author"
             width={80}
             height={80}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full border-4 border-white shadow-md rounded-full"
           />
         </div>
         <h1 className="mt-3 text-[#290446] font-semibold text-lg text-[18px]">
@@ -30,7 +30,7 @@ export default function PsychologyGuideCard() {
       {/* Основное изображение */}
       <div className="relative w-full rounded-3xl overflow-hidden">
         <Image
-          src="/author-giude.png"
+          src="/author-guide.png"
           alt="Author"
           width={200}
           height={160}

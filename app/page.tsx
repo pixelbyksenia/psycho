@@ -15,28 +15,32 @@ export default function Home() {
   ];
 
   return (
-    <div className="font-montserrat min-h-screen bg-covertext-foreground bg-[#EBDEFC]">
-      <Image className="w-full h-20" src="/background-top.png" alt="Top" />
+    <div className="font-montserrat w-[100vw] bg-covertext-foreground bg-[#EBDEFC]">
+      <Image
+        className="w-full h-20 absolute"
+        src="/background-top.png"
+        alt="Top"
+      />
       <PsychologyGuideCard />
       <div className="flex flex-wrap items-center w-full justify-center bg-[#EBDEFC] sticky top-0 z-100">
         <CTAWithModal />
       </div>
-      <section className="relative min-h-screen-[80vh ] flex items-center justify-center bg-[#EBDEFC] ">
+      <section className="relative flex items-center justify-center bg-[#EBDEFC] ">
         <div className="max-w-6xl mx-auto px-6 py-20 sm:py-28 flex flex-col leading-[150%] w-160 font-regular gap-8 text-[#7131DB]">
-          <div className="font-montserrat font-medium text-left text-[42px] w-20 leading-[91%] tracking-[-2px]">
+          <div className="font-montserrat font-medium text-left text-[24px] w-20 leading-[91%] tracking-[-2px]">
             эффективная терапия: практическое руководство
           </div>
 
-          <div className=" text-[24px] text-right text-foreground/80 w-64 self-end">
+          <div className=" text-[16px] text-right text-foreground/80 w-64 self-end">
             для тех, кто делает
             <span className="font-semibold"> первый шаг </span>в психологию
           </div>
 
-          <div className=" text-[24px] text-right text-foreground/80 w-72 self-end">
+          <div className=" text-[16px] text-right text-foreground/80 w-72 self-end">
             этот гид <span className="font-semibold"> поможет понять, </span>
             как работает терапия и с чего начать.
           </div>
-          <div className=" text-[24px] text-right text-foreground/80 w-88 self-end">
+          <div className=" text-[16px] text-right text-foreground/80 w-88 self-end">
             вы узнаете, что
             <span className="font-semibold"> важно в первых встречах, </span>
             как строятся

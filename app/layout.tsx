@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Montserrat } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -20,9 +21,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Психологический гайд — спокойствие и фокус",
+  title: "Гайд для начинающего психолога — техники саморегуляции и фокус",
   description:
-    "Современный минималистичный лендинг: гайд по саморегуляции, упражнения и техники.",
+    "Практический гайд для начинающих психологов: упражнения, техники и советы по спокойствию и концентрации. Освойте саморегуляцию легко и эффективно.",
 };
 
 export default function RootLayout({
@@ -33,9 +34,10 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[url('/public/background.png')] bg-cover bg-center bg-no-repeat min-h-screen w-full`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased w-full`}
       >
         {children}
+        <SpeedInsights />
       </body>
     </html>
   );
