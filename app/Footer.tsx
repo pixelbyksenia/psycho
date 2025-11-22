@@ -1,6 +1,7 @@
 import React from "react";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import TelegramIcon from "@mui/icons-material/Telegram";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -14,25 +15,30 @@ export default function Footer() {
               © {new Date().getFullYear()} Все права защищены
             </p>
             <p>Автор: Василенко Оксана Игоревна</p>
-            <a href="tel:+48889987670" className="hover:underline transition">
-              📞 +48 889-987-670
+            <a href="tel:+380639978032" className="hover:underline transition">
+              📞 +380 639-978-032
             </a>
           </div>
 
           {/* Средняя часть */}
           <div className="flex flex-col items-center gap-1">
-            <a
-              href="/privacy-policy"
+            <Link
+              href="/privacy.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#B0AAB5] hover:text-[#290446] transition"
             >
               Политика конфиденциальности
-            </a>
-            <a
-              href="/terms-of-use"
+            </Link>
+
+            <Link
+              href="/public-offer.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#B0AAB5] hover:text-[#290446] transition"
             >
               Условия использования
-            </a>
+            </Link>
           </div>
 
           {/* Правая часть — иконки соцсетей */}
@@ -56,9 +62,7 @@ export default function Footer() {
               </a>
             </div>
 
-            <div className="text-xs mt-2 text-[#B0AAB5]">
-              ИП 1234567890 • РНКП 321770000000000
-            </div>
+            <div className="text-xs mt-2 text-[#B0AAB5]">ІПН 3286818121</div>
             <p className="text-xs">
               Электронная почта:{" "}
               <a

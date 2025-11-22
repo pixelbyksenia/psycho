@@ -19,6 +19,8 @@ export default function Home() {
       <Image
         className="w-full h-20 absolute"
         src="/background-top.png"
+        width={1920}
+        height={80}
         alt="Top"
       />
       <PsychologyGuideCard />
