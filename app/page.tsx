@@ -1,5 +1,4 @@
 import Image from "next/image";
-import CTAWithModal from "./components/CTAWithModal";
 export const dynamic = "force-static";
 import Footer from "./Footer";
 import PsychologyGuideCard from "./PsychologyGuideCard";
@@ -24,9 +23,13 @@ export default function Home() {
         alt="Top"
       />
       <PsychologyGuideCard />
-      <div className="flex flex-wrap items-center w-full justify-center bg-[#EBDEFC] sticky top-0 z-100">
-        <CTAWithModal />
-      </div>
+      <a href="https://secure.wayforpay.com/button/b4547dcf41081">
+        <div className="flex flex-wrap items-center w-full justify-center bg-[#EBDEFC] sticky top-0 z-100">
+          <div className="text-xl text-[#290446] font-semibold border-2 border-[#290446] rounded-full px-20 py-3 my-4 hover:bg-[#290446] hover:text-white bg-[#F3EBFF] active:text-white active:bg-[#290446] shadow-lg shadow-indigo-500/50">
+            Оплатить
+          </div>
+        </div>
+      </a>
       <section className="relative flex items-center justify-center bg-[#EBDEFC] ">
         <div className="max-w-6xl mx-auto px-6 py-20 sm:py-28 flex flex-col leading-[150%] w-160 font-regular gap-8 text-[#7131DB]">
           <div className="font-montserrat font-medium text-left text-[24px] w-20 leading-[91%] tracking-[-2px]">
