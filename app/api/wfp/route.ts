@@ -33,10 +33,5 @@ export async function POST(req: Request) {
     terminal: "E0171229",
     acquirer: 'AT "Райффайзен Банк Аваль"',
   };
-
-  return NextResponse.json({
-    orderReference: body.orderReference || "",
-    status: "accept",
-    time: Date.now(),
-  });
+  return new NextResponse("OK", { status: 200 });
 }
