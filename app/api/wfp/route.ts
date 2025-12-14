@@ -1,9 +1,28 @@
 import { NextResponse } from "next/server";
 
+const processWayForPay = async (data: any) => {
+  const { orderReference, transactionStatus, rrn } = data;
+
+  if (transactionStatus !== "Approved") return;
+};
+
 export async function POST(req: Request) {
   const body = await req.json(); // тип any
   console.log("PAYMENT CALLBACK:", body);
 
+  const ackResponse = new NextResponse("OK", {
+    status: 200,
+    headers: {
+      "Content-Type": "text/plain",
+    },
+  });
+  setImmediate(() => {
+    try {
+      processWayForPay(body);
+    } catch (e) {
+      console.error("WFP processing error", e);
+    }
+  });
   const data = {
     merchantAccount: "www_psihologoginia_com",
     orderReference: "WFP-BTN-11535539-6933469d1b6cf",
@@ -33,5 +52,9 @@ export async function POST(req: Request) {
     terminal: "E0171229",
     acquirer: 'AT "Райффайзен Банк Аваль"',
   };
-  return new NextResponse("OK", { status: 200 });
+  setImmediate(() => {
+    processWayForPay(body).catch(e => console.error("WFP error", e));
+  });
+
+  return ackResponse;
 }
