@@ -2,19 +2,21 @@
 
 export default function SuccessPage() {
   return (
-    <section className="relative flex items-center justify-center bg-[#EBDEFC]">
-      <div className="max-w-6xl mx-auto px-6 py-20 sm:py-28 flex flex-col leading-[150%] w-160 font-regular gap-8 text-[#7131DB] items-center">
-        <div className="font-montserrat font-medium text-[26px] w-20 leading-[91%]">
+    <section className="flex min-h-screen w-full items-center justify-center bg-[#EBDEFC]">
+      <div className="flex flex-col items-center justify-center gap-8 px-6 text-center text-[#7131DB]">
+        <h1 className="font-montserrat text-[26px] font-medium leading-tight">
           Оплата успешна 🎉
-        </div>
-        <div className="font-montserrat font-regular text-[24px] w-20 leading-[70%]">
-          Ваш заказ успешно оплачен.
-        </div>
+        </h1>
+
+        <p className="font-montserrat text-[20px] font-normal leading-tight max-w-md leading-[1.4]">
+          Ваш гайд скоро будет отправлен на вашу почту.
+        </p>
+
         <button
-          className="text-xl text-[#290446] font-semibold border-2 border-[#290446] rounded-full px-20 py-3 my-4 hover:bg-[#290446] hover:text-white bg-[#F3EBFF] active:text-white active:bg-[#290446] shadow-lg shadow-indigo-500/50"
           onClick={() => {
             window.location.href = "https://www.psiholoboginia.com";
           }}
+          className="mt-4 rounded-full border-2 border-[#290446] bg-[#F3EBFF] px-20 py-3 text-xl font-semibold text-[#290446] shadow-lg shadow-indigo-500/50 transition-all hover:bg-[#290446] hover:text-white active:bg-[#290446] active:text-white"
         >
           На главную
         </button>
