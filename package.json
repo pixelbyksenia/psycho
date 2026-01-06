@@ -18,13 +18,16 @@
     "@mui/material": "^7.3.4",
     "@vercel/speed-insights": "^1.2.0",
     "next": "^16.0.10",
+    "nodemailer": "^7.0.12",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react-dom": "^19.2.3",
+    "resend": "^6.6.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/nodemailer": "^7.0.4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "concurrently": "^9.2.1",
