@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const resend = new Resend("re_Lu3onVAq_DwWpwuAw5kagNX4CAFtptUiP");
+const resend = new Resend(process.env.RESEND_KEY!);
 export async function POST(req: Request) {
   const body = await req.json(); // тип any
   console.log("PAYMENT CALLBACK:", body);
