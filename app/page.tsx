@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 export const dynamic = "force-static";
 import Footer from "./Footer";
@@ -55,9 +56,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* 4. Author */}
-
       <div className="flex flex-col items-center">
         <Image
           src="/image.png"
@@ -74,7 +73,6 @@ export default function Home() {
           <YouTubeIcon style={{ color: "#EBDEFC", fontSize: 28 }} />
         </button>
       </div>
-
       <Footer />
     </div>
   );

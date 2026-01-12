@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import emailjs from "@emailjs/browser";
 
 const resend = new Resend(process.env.RESEND_KEY!);
 export async function POST(req: Request) {
@@ -36,30 +37,25 @@ export async function POST(req: Request) {
   }; */
 
   if (body.transactionStatus === "Approved") {
-    try {
-      await resend.emails.send({
-        from: "psiholoboginia.bot@gmail.com <no-reply@psiholoboginia.bot@gmail.com>",
-        to: ["kseniabki2703@gmail.com"], // email владельца (можно несколько)
-        subject: `Новая успешная оплата! Order: ${body.orderReference}`,
-        html: `
-          <h2>Новая оплата получена</h2>
-          <p><strong>Заказ:</strong> ${body.orderReference}</p>
-          <p><strong>Сумма:</strong> ${body.amount} ${body.currency}</p>
-          <p><strong>Товары:</strong> Гайд психологии</p>
-          
-          <p><strong>Покупатель:</strong> ${body.email || "не указан"} (${body.phone || "не указан"})</p>
-          <p><strong>Карта:</strong> ${body.cardPan} (${body.cardType})</p>
-          <p><strong>Способ оплаты:</strong> ${body.paymentSystem}</p>
-          <p><strong>Время:</strong> ${new Date(body.processingDate * 1000).toLocaleString("ru-UA")}</p>
-        `,
-      });
+    const templateParams = {
+      user_name: body.clientName || "Друг", // ← имя покупателя
+      user_email: body.email,
+      guide_link:
+        "https://drive.google.com/uc?export=download&id=1VKxL3s8GNuKfTuARGgnDKSalIbJeSC-H", // ← твоя прямая ссылка
+      // если в шаблоне есть другие переменные — добавь их сюда
+    };
 
-      console.log("Email отправлен успешно");
+    try {
+      await emailjs.send(
+        "service_1zi26m8",
+        "template_5xmptsj",
+        templateParams,
+        "8FRzm_KxXgz_n_pZp"
+      );
     } catch (error) {
-      console.error("Ошибка отправки email через Resend:", error);
+      console.error("Ошибка отправки:", error);
     }
   }
-
   const response = {
     orderReference: body.orderReference,
     status: "accept",
