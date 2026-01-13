@@ -1,65 +1,43 @@
-import { Resend } from "resend";
-import emailjs from "@emailjs/browser";
+import emailjs from "@emailjs/nodejs";
 
-const resend = new Resend(process.env.RESEND_KEY!);
 export async function POST(req: Request) {
-  const body = await req.json(); // тип any
+  const body = await req.json();
   console.log("PAYMENT CALLBACK:", body);
-
-  /* const data = {
-    merchantAccount: "www_psihologoginia_com",
-    orderReference: "WFP-BTN-11535539-6933469d1b6cf",
-    merchantSignature: "167f0dab3b833fb994b288e6d2dd7fc8",
-    amount: 2,
-    currency: "UAH",
-    authCode: "858383",
-    email: "ksenavasilenko89@gmail.com",
-    phone: "380938193285",
-    createdDate: 1764968093,
-    processingDate: 1764968109,
-    cardPan: "53****6041",
-    cardType: "MasterCard",
-    issuerBankCountry: "Poland",
-    issuerBankName: "mBank S.A.",
-    recToken: "",
-    transactionStatus: "Approved",
-    reason: "Ok",
-    reasonCode: 1100,
-    fee: 0.04,
-    paymentSystem: "applePay",
-    acquirerBankName: "WayForPay",
-    cardProduct: "debit",
-    clientName: null,
-    products: [{ name: "Гайд", price: 2, count: 1 }],
-    rrn: "533922360480",
-    terminal: "E0171229",
-    acquirer: 'AT "Райффайзен Банк Аваль"',
-  }; */
 
   if (body.transactionStatus === "Approved") {
     const templateParams = {
-      user_name: body.clientName || "Друг", // ← имя покупателя
-      user_email: body.email,
+      user_name: body.clientName || body.clientFirstName || "Друг",
+      user_email: body.email, // должно быть обязательно!
       guide_link:
-        "https://drive.google.com/uc?export=download&id=1VKxL3s8GNuKfTuARGgnDKSalIbJeSC-H", // ← твоя прямая ссылка
-      // если в шаблоне есть другие переменные — добавь их сюда
+        "https://drive.google.com/uc?export=download&id=1VKxL3s8GNuKfTuARGgnDKSalIbJeSC-H",
+      // добавь сюда другие переменные шаблона, если нужно
     };
 
     try {
-      await emailjs.send(
-        "service_1zi26m8",
-        "template_5xmptsj",
+      const response = await emailjs.send(
+        "service_1zi26m8", // твой Service ID
+        "template_5xmptsj", // твой Template ID
         templateParams,
-        "8FRzm_KxXgz_n_pZp"
+        {
+          publicKey: "8FRzm_KxXgz_n_pZp", // твой Public Key
+          privateKey: "GG8hne-cSe0JJZJ8F11Ag", // ← добавь это в .env!
+          // privateKey — очень рекомендуется для сервера (больше безопасности)
+        }
       );
+
+      console.log("EMAILJS SUCCESS!", response.status, response.text);
     } catch (error) {
-      console.error("Ошибка отправки:", error);
+      console.error("EMAILJS ОШИБКА:", error);
     }
   }
+
+  // Обязательный ответ WayForPay (ты его почти правильно сделал, но лучше добавить подпись)
+  const time = Math.floor(Date.now() / 1000);
   const response = {
     orderReference: body.orderReference,
-    status: "accept",
-    time: Math.floor(Date.now() / 1000),
+    status: "accept", // или "refuse" при ошибке
+    time,
+    // signature: ... (если требуется по документации WayForPay — добавь HMAC)
   };
 
   return new Response(JSON.stringify(response), {
