@@ -31,7 +31,6 @@ export async function POST(req: Request) {
     }
   }
 
-  // Обязательный ответ WayForPay (ты его почти правильно сделал, но лучше добавить подпись)
   const time = Math.floor(Date.now() / 1000);
   const response = {
     orderReference: body.orderReference,
