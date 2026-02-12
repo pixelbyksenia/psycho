@@ -53,7 +53,7 @@ export default function PsychologyGuideCard() {
             9 $
           </div>
           <div className="text-[#bababab3] text-sm mt-1 h-6 flex items-center justify-center">
-            <div className="absolute">28 $</div>
+            <div className="absolute">50 $</div>
             <div className="w-28 h-[1px] bg-[#bababab3]"></div>
           </div>
         </div>
