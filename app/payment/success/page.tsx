@@ -1,25 +1,95 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+
 export default function SuccessPage() {
+  // We avoid `useSearchParams()` here because it can cause a prerender error
+  // during the build if the page is statically prerendered. Instead we read
+  // the params from `window.location.search` inside useEffect (client-only).
+  const [status, setStatus] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const invokedRef = useRef(false);
+
+  useEffect(() => {
+    // Вызываем API один раз после монтирования
+    if (invokedRef.current) return;
+    invokedRef.current = true;
+
+    const params = new URLSearchParams(
+      typeof window !== "undefined" ? window.location.search : ""
+    );
+    const client_email = params.get("client_email") || params.get("email");
+    const orderReference = params.get("orderReference");
+    const amount = params.get("amount");
+
+    const payload = {
+      client_email,
+      orderReference,
+      amount,
+    } as const;
+
+    // Не блокируем UI — отображаем статус
+    (async () => {
+      if (!client_email) {
+        setStatus("Email покупателя не найден в параметрах URL.");
+        return;
+      }
+
+      setLoading(true);
+      setStatus("Отправляем гайд на указанный email...");
+
+      try {
+        const res = await fetch("/api/send-guide", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const json = await res.json();
+        if (!res.ok) {
+          console.error("send-guide failed:", json);
+          setStatus("Не удалось отправить письмо — попробуйте позже.");
+        } else {
+          setStatus("Гайд отправлен на ваш email. Спасибо за покупку! 🎉");
+        }
+      } catch (err) {
+        console.error(err);
+        setStatus("Ошибка при отправке. Попробуйте ещё раз.");
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
   return (
     <section className="flex min-h-screen w-full items-center justify-center bg-[#EBDEFC]">
-      <div className="flex flex-col items-center justify-center gap-8 px-6 text-center text-[#7131DB]">
+      <div className="flex flex-col items-center justify-center gap-6 px-6 text-center text-[#7131DB]">
         <h1 className="font-montserrat text-[26px] font-medium leading-tight">
           Оплата успешна 🎉
         </h1>
 
         <p className="font-montserrat text-[20px] font-normal leading-tight max-w-md leading-[1.4]">
-          Ваш гайд скоро будет отправлен на вашу почту.
+          {status ?? "Проверяем параметры платежа..."}
         </p>
 
-        <button
-          onClick={() => {
-            window.location.href = "https://www.psiholoboginia.com";
-          }}
-          className="mt-4 rounded-full border-2 border-[#290446] bg-[#F3EBFF] px-20 py-3 text-xl font-semibold text-[#290446] shadow-lg shadow-indigo-500/50 transition-all hover:bg-[#290446] hover:text-white active:bg-[#290446] active:text-white"
-        >
-          На главную
-        </button>
+        <div className="flex gap-4">
+          <a
+            href="/guid.pdf"
+            download
+            className="mt-4 rounded-full border-2 border-[#290446] bg-white px-6 py-3 text-base font-semibold text-[#290446] shadow transition-all hover:bg-[#F3EBFF]"
+          >
+            Скачать гайд сразу
+          </a>
+
+          <button
+            onClick={() => (window.location.href = "/")}
+            className="mt-4 rounded-full border-2 border-[#290446] bg-[#F3EBFF] px-6 py-3 text-base font-semibold text-[#290446] shadow transition-all hover:bg-[#290446] hover:text-white"
+          >
+            На главную
+          </button>
+        </div>
+
+        {loading && <p className="mt-2 text-sm text-gray-600">Отправка...</p>}
       </div>
     </section>
   );
