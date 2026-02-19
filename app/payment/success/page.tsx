@@ -14,17 +14,35 @@ export default function SuccessPage() {
   async function handleDownload() {
     try {
       setDownloadLoading(true);
+
       const res = await fetch("/guid.pdf");
-      if (!res.ok) throw new Error("Failed to fetch PDF");
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "guid.pdf";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
+
+      // На большинстве мобильных браузеров window.open с _blank лучше срабатывает
+      const newWindow = window.open(url, "_blank");
+
+      // Если окно не открылось (блокировщик попапов) — fallback на a.click
+      if (
+        !newWindow ||
+        newWindow.closed ||
+        typeof newWindow.closed === "undefined"
+      ) {
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "guid.pdf";
+        a.rel = "noopener noreferrer";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      // Чистим через 3–5 секунд (чтобы blob не висел в памяти)
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 5000);
     } catch (err) {
       console.error("Download failed:", err);
       alert("Не удалось скачать гайд. Попробуйте ещё раз.");
