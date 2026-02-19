@@ -9,6 +9,29 @@ export default function SuccessPage() {
   const [status, setStatus] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const invokedRef = useRef(false);
+  const [downloadLoading, setDownloadLoading] = useState(false);
+
+  async function handleDownload() {
+    try {
+      setDownloadLoading(true);
+      const res = await fetch("/guid.pdf");
+      if (!res.ok) throw new Error("Failed to fetch PDF");
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "guid.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Download failed:", err);
+      alert("Не удалось скачать гайд. Попробуйте ещё раз.");
+    } finally {
+      setDownloadLoading(false);
+    }
+  }
 
   useEffect(() => {
     // Вызываем API один раз после монтирования
@@ -73,13 +96,13 @@ export default function SuccessPage() {
         </p>
 
         <div className="flex gap-4">
-          <a
-            href="/guid.pdf"
-            download
-            className="mt-4 rounded-full border-2 border-[#290446] bg-white px-6 py-3 text-base font-semibold text-[#290446] shadow transition-all hover:bg-[#F3EBFF]"
+          <button
+            onClick={handleDownload}
+            disabled={downloadLoading}
+            className="mt-4 rounded-full border-2 border-[#290446] bg-white px-6 py-3 text-base font-semibold text-[#290446] shadow transition-all hover:bg-[#F3EBFF] disabled:opacity-50"
           >
-            Скачать гайд сразу
-          </a>
+            {downloadLoading ? "Скачиваем..." : "Скачать гайд сразу"}
+          </button>
 
           <button
             onClick={() => (window.location.href = "/")}
